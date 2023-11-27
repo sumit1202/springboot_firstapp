@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoRestController {
 
-    private Coach myCoach;
+    private Coach myCoach1;
+    private Coach myCoach2;
 
     @Autowired
-    DemoRestController(@Qualifier("footballCoach") Coach thisCoach) {
-        System.out.println("In Constructor: "+ getClass().getSimpleName());
-        myCoach = thisCoach;
+    DemoRestController(@Qualifier("cricketCoach") Coach fCoach, @Qualifier("cricketCoach") Coach cCoach) {
+        myCoach1 = fCoach;
+        myCoach2 = cCoach;
     }
 
-    @GetMapping("/coaching")
-    public String FunCoachController() {
-        return myCoach.getDailyWorkout();
+    @GetMapping("/check")
+    public String FunCheck() {
+        return "Comparing 2 beans, if (myCoach1 == myCoach2) and ans is "+ (myCoach1==myCoach2)+".";
     }
 
 }
