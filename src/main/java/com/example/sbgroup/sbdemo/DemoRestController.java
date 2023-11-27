@@ -5,21 +5,32 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
 @RestController
 public class DemoRestController {
 
-    private Coach myCoach1;
-    private Coach myCoach2;
-
-    @Autowired
-    DemoRestController(@Qualifier("cricketCoach") Coach fCoach, @Qualifier("cricketCoach") Coach cCoach) {
-        myCoach1 = fCoach;
-        myCoach2 = cCoach;
+    @PostConstruct
+    public void initizeStuff(){
+        System.out.println("Initization Stuff being done.");
     }
 
-    @GetMapping("/check")
+    private Coach myCoach;
+
+    @Autowired
+    DemoRestController(@Qualifier("cricketCoach") Coach fCoach) {
+        myCoach = fCoach;
+    }
+
+    @GetMapping("/coaching")
     public String FunCheck() {
-        return "Comparing 2 beans, if (myCoach1 == myCoach2) and ans is "+ (myCoach1==myCoach2)+".";
+        return myCoach.getDailyWorkout();
+    }
+
+    @PreDestroy
+    public void destroyStuff(){
+        System.out.println("Destruction Stuff being done.");
     }
 
 }
