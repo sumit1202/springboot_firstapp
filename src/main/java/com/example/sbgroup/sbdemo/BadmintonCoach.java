@@ -1,11 +1,13 @@
 package com.example.sbgroup.sbdemo;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-@Primary
 @Component
 public class BadmintonCoach implements Coach{
+
+    public BadmintonCoach(){
+        System.out.println("In Constructor: "+ getClass().getSimpleName());
+    }
 
     @Override
     public String getDailyWorkout() {

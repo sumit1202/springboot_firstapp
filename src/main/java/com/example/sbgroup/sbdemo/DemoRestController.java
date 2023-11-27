@@ -11,7 +11,8 @@ public class DemoRestController {
     private Coach myCoach;
 
     @Autowired
-    DemoRestController(Coach thisCoach) {
+    DemoRestController(@Qualifier("footballCoach") Coach thisCoach) {
+        System.out.println("In Constructor: "+ getClass().getSimpleName());
         myCoach = thisCoach;
     }
 
